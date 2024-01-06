@@ -18,5 +18,5 @@ export class Chat extends Model<Chat> {
   @Column({
     type: DataType.STRING,
   })
-  message: string;
+  msg: string;
 }

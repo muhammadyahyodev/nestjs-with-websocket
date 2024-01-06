@@ -1,7 +1,7 @@
 const socket = io('http://localhost:8080/chat');
 const msgBox = document.getElementById('exampleFormControlTextarea1');
 const msgCont = document.getElementById('data-container');
-const email = document.getElementById('email');
+const username = document.getElementById('username');
 
 //get old messages from the server
 const messages = [];
@@ -11,7 +11,6 @@ function getMessages() {
     .then((data) => {
       loadDate(data);
       data.forEach((el) => {
-        console.log(el)
         messages.push(el);
       });
     })
@@ -21,9 +20,8 @@ getMessages();
 
 //When a user press the enter key, send message.
 msgBox.addEventListener('keyup', (e) => {
-  console.log(e);
   if (e.keyCode === 13) {
-    sendMessage({ email: email.value, text: e.target.value });
+    sendMessage({ username: username.value, msg: e.target.value });
     e.target.value = '';
   }
 });
@@ -33,8 +31,8 @@ function loadDate(data) {
   let messages = '';
   data.map((message) => {
     messages += ` <li class="bg-secondary p-2 rounded mb-2 text-light">
-      <span class="fw-bolder">${message.email}</span>
-      ${message.text}
+      <span class="fw-bolder">${message.username}</span>
+      ${message.msg}
     </li>`;
   });
   msgCont.innerHTML = messages;
@@ -47,7 +45,6 @@ function sendMessage(message) {
 }
 //Listen to recMessage event to get the messages sent by users
 socket.on('recMessage', (message) => {
-  console.log(message)
   messages.push(message);
   loadDate(messages);
 });

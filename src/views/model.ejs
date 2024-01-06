@@ -31,7 +31,7 @@
       <div class="mb-3 mt-4">
         <input
           class="form-control"
-          id="email"
+          id="username"
           rows="3"
           placeholder="Your Email"
         />
@@ -70,7 +70,7 @@
 
       const msgBox = document.getElementById('exampleFormControlTextarea1');
       const msgCont = document.getElementById('data-container');
-      const email = document.getElementById('email');
+      const username = document.getElementById('username');
 
       //get old messages from the server
       const messages = [];
@@ -90,7 +90,7 @@
       //When a user press the enter key, send message.
       msgBox.addEventListener('keyup', (e) => {
         if (e.keyCode === 13) {
-          sendMessage({ email: email.value, text: e.target.value });
+          sendMessage({ username: username.value, msg: e.target.value });
           e.target.value = '';
         }
       });
@@ -102,9 +102,9 @@
             (message) =>
               `<li class="bg-secondary p-2 rounded mb-2 text-light">
                   <span class="fw-bolder">
-                    ${message.email}
+                    ${message.username}
                   </span>
-                  ${message.text}
+                  ${message.msg}
               </li>`,
           )
           .join('');
