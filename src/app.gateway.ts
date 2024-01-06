@@ -3,6 +3,7 @@ import { SubscribeMessage, WebSocketGateway, OnGatewayInit,
          MessageBody, ConnectedSocket } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { AppService } from './app.service';
+import { MessageDto } from './dto/message.dto';
 
 @WebSocketGateway({ cors: { origin: '*' } })
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -11,7 +12,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @WebSocketServer() server: Server;
 
   @SubscribeMessage('sendmessage')
-  async handleSendMessage(@MessageBody() data: any, @ConnectedSocket() client: Socket ) {
+  async handleSendMessage(@MessageBody() data: MessageDto, @ConnectedSocket() client: Socket ) {
     await this.appService.createMessage(data);
     this.server.emit('recMessage', data);
   }

@@ -13,10 +13,10 @@ export class Chat extends Model<Chat> {
   @Column({
     type: DataType.STRING,
   })
-  email: string;
+  username: string;
 
   @Column({
     type: DataType.STRING,
   })
-  text: string;
+  message: string;
 }
