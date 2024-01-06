@@ -58,11 +58,9 @@
     <!-- main js file -->
     <!-- <script src="../public/main.js"></script> -->
     <script>
-      const socket = io('http://localhost:3002/chat', {
-        autoConnect: false,
+      const socket = io('http://localhost:8080', {
+        autoConnect: true,
       });
-
-      console.log('socket: ', socket);
 
       socket.on('connect', () => {
         console.log('Connected to server!');
@@ -77,7 +75,7 @@
       //get old messages from the server
       const messages = [];
       function getMessages() {
-        fetch('http://localhost:3002/api/chat')
+        fetch('http://localhost:8080/api/chat')
           .then((response) => response.json())
           .then((data) => {
             loadDate(data);
@@ -103,9 +101,11 @@
           .map(
             (message) =>
               `<li class="bg-secondary p-2 rounded mb-2 text-light">
-        <span class="fw-bolder">${message.email}</span>
-        ${message.text}
-      </li>`,
+                  <span class="fw-bolder">
+                    ${message.email}
+                  </span>
+                  ${message.text}
+              </li>`,
           )
           .join('');
         msgCont.innerHTML = messages;

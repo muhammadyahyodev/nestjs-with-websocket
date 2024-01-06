@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3030/chat');
+const socket = io('http://localhost:8080/chat');
 const msgBox = document.getElementById('exampleFormControlTextarea1');
 const msgCont = document.getElementById('data-container');
 const email = document.getElementById('email');
@@ -6,11 +6,12 @@ const email = document.getElementById('email');
 //get old messages from the server
 const messages = [];
 function getMessages() {
-  fetch('http://localhost:3030/api/chat')
+  fetch('http://localhost:8080/api/chat')
     .then((response) => response.json())
     .then((data) => {
       loadDate(data);
       data.forEach((el) => {
+        console.log(el)
         messages.push(el);
       });
     })
@@ -46,6 +47,7 @@ function sendMessage(message) {
 }
 //Listen to recMessage event to get the messages sent by users
 socket.on('recMessage', (message) => {
+  console.log(message)
   messages.push(message);
   loadDate(messages);
 });

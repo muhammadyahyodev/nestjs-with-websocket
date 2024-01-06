@@ -9,7 +9,6 @@ export class AppService {
   ) {}
 
   async createMessage(chat: Chat): Promise<Chat> {
-    console.log('chat: ', chat);
     const msg = await this.chatRepository.create(chat);
     return msg;
   }
