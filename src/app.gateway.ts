@@ -14,7 +14,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('sendmessage')
   async handleSendMessage(@MessageBody() data: MessageDto, @ConnectedSocket() client: Socket ) {
     await this.appService.createMessage(data);
-    this.server.emit('recMessage', data);
+    this.server.emit('recMessage', await this.appService.getMessages());
   }
 
   afterInit(server: Server) {

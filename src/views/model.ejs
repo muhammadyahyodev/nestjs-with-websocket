@@ -73,7 +73,6 @@
       const username = document.getElementById('username');
 
       //get old messages from the server
-      const messages = [];
       function getMessages() {
         fetch('http://localhost:8080/api/chat')
           .then((response) => response.json())
@@ -95,6 +94,7 @@
         }
       });
 
+      const messages = [];
       function loadDate(data) {
         let messages = '';
         messages = data
@@ -118,8 +118,7 @@
       }
 
       //Listen to recMessage event to get the messages sent by users
-      socket.on('recMessage', (message) => {
-        messages.push(message);
+      socket.on('recMessage', (messages) => {
         loadDate(messages);
       });
     </script>
